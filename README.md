@@ -1,1 +1,1 @@
-# Seismology-Web-App
+# Seismology Web App
