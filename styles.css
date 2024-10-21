@@ -199,9 +199,11 @@
         border-collapse: collapse;
         margin: 25px 0;
         font-size: 1.5em;
-        min-width: 900px;
+        
         margin-left: auto;
         margin-right: auto;
+        width: 80%;
+        table-layout: fixed;
     }
     .table__content thead tr{
         background-color: #0074f0;
@@ -216,6 +218,7 @@
     }
     .table__content tbody tr{
         border-bottom: 1px solid #4e4e4e;
+        bor
     }
 
     .table__content tbody tr:nth-last-of-type(even){
