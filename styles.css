@@ -218,7 +218,6 @@
     }
     .table__content tbody tr{
         border-bottom: 1px solid #4e4e4e;
-        bor
     }
 
     .table__content tbody tr:nth-last-of-type(odd){
