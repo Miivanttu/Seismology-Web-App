@@ -1,15 +1,35 @@
 {% extends "base.html" %}
 {% block content %} 
-<div class="arvutus">
-    <div class="arvutus__container">
-            <h2>Andmete Arvutamine</h2><hr />
-            <input type="number" placeholder="Vonkekiirus">
-            <br />
-            <input type="number" placeholder="Kaugus">
-            <br />
-            <input type="number" placeholder="Laengumass">
-            <br />
-            <button>Arvuta</button>
-        </div>
-</div>
+<form method="POST">
+    <h3 align="center">Andmete Arvutamine</h3>
+    <div class="form-group">
+        <input 
+        type="number"
+        class="form-control"
+        id="vonkeKiirus"
+        name="vonkeKiirus"
+        placeholder="Vonkekiirus"
+        />
+    </div>
+    <div class="form-group"></div>
+        <input 
+        type="number"
+        class="form-control"
+        id="kaugus"
+        name="kaugus"
+        placeholder="Kaugus"
+        />
+    </div>
+    <div class="form-group"></div>
+        <input 
+        type="number"
+        class="form-control"
+        id="laenguMass"
+        name="laenguMass"
+        placeholder="Laengumass"
+        />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Arvuta</button>
+</form>
 {% endblock %}
