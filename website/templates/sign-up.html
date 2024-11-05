@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="max-width: 500px; margin-top: 50px;">
+    <h3 align="center">Registreeru</h3>
+    <form method="POST">
+        <div class="form-group">
+            <label for="username">Kasutajanimi</label>
+            <input 
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="Sisestage kasutajanimi"
+            required
+            />
+        </div>
+        <div class="form-group">
+            <label for="email">E-post</label>
+            <input 
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Sisestage e-post"
+            required
+            />
+        </div>
+        <div class="form-group">
+            <label for="password">Parool</label>
+            <input 
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Sisestage parool"
+            required
+            />
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Kinnitage Parool</label>
+            <input 
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Kinnitage parool"
+            required
+            />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-success btn-block">Registreeru</button>
+    </form>
+</div>
+{% endblock %}
