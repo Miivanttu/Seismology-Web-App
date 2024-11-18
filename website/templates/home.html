@@ -1,1 +1,5 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %}
+{% block content %} 
+<image class="picture" src="{{ url_for('static', filename='images/earth.jpeg') }}">
+{% endblock %}

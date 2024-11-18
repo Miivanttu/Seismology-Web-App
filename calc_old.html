@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Calculation{% endblock %}
+{% block content %} 
+<form method="POST">
+    <h3 align="center">Andmete Arvutamine</h3>
+    <div class="form-group">
+        <input 
+        type="number"
+        class="form-control"
+        id="vonkeKiirus"
+        name="vonkeKiirus"
+        value="{{vonkeKiirus}}"
+        placeholder="Vonkekiirus"
+        />
+    </div>
+    <div class="form-group"></div>
+        <input 
+        type="number"
+        class="form-control"
+        id="kaugus"
+        name="kaugus"
+        value="{{kaugus}}"
+        placeholder="Kaugus"
+        />
+    </div>
+    <div style="width: 50%;" class="form-group"></div>
+        <input 
+        type="number"
+        class="form-control"
+        id="laenguMass"
+        name="laenguMass"
+        value="{{laenguMass}}"
+        placeholder="Laengumass"
+        />
+    </div>
+    <br />
+    <div style="text-align: center;">
+        <button type="submit" class="btn btn-primary">Arvuta</button>
+    </div>
+    <br />
+    <h2 align="center">Tulemus:</h2>
+    {% if result is not none %}
+        <p align="center"><strong>{{ result }}</strong></p>
+    {% else %}
+        <p align="center">Sisestage 2 algparameetrid</p>
+    {% endif %}
+</form>
+{% endblock %}
