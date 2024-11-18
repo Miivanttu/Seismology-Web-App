@@ -23,6 +23,6 @@ def arvuta():
     return render_template("calc.html", result = result)
 
 
-def testFunc(vonk, kaug, laen):
+def parameetriArvutamine(vonk, kaug, laen): #funktsioon parameetri leidmiseks, kirjuta arvutamis meetod
     result = vonk + kaug + laen
     return result
