@@ -7,6 +7,7 @@
     background-color: #0074f0;
     background-image: linear-gradient(to top, #0074f0 0%, #cfe5fd 100%);
     background-size: 100%;
+    background-clip: border-box;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -34,4 +35,12 @@
 .nav-item:hover{
     color: #0074f0;
     transition: all 0.3s ease;
+}
+.graphReg{
+    display: flex;
+    justify-content: center;
+    
+}
+.graphHeader{
+    text-align: center;
 }
