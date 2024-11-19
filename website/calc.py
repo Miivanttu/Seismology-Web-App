@@ -20,7 +20,7 @@ def arvuta():
     return render_template("calc.html", result = result)
 
 
-def kaugusArvuta(vonkeKiirus, kaugus, laenguMass):  #täita kausguse arvutamiseks funktsioon
+  def kaugusArvuta(vonkeKiirus, kaugus, laenguMass):  #täita kausguse arvutamiseks funktsioon
     result = 10
     return result
 
