@@ -9,6 +9,7 @@ def arvuta():
         vonkeKiirus = request.form.get('vonkeKiirus', type=float)
         kaugus = request.form.get('kaugus', type=float)
         laenguMass = request.form.get('laenguMass', type=float)
+        ehituseLiik = request.form.get('ehituseLiik', type=float)
         if vonkeKiirus == None and kaugus != None and laenguMass != None:
             result = vonkeKiirusArvuta(vonkeKiirus, kaugus, laenguMass)
         elif vonkeKiirus != None and kaugus != None and laenguMass == None:
@@ -20,7 +21,7 @@ def arvuta():
     return render_template("calc.html", result = result)
 
 
-  def kaugusArvuta(vonkeKiirus, kaugus, laenguMass):  #täita kausguse arvutamiseks funktsioon
+def kaugusArvuta(vonkeKiirus, kaugus, laenguMass):  #täita kausguse arvutamiseks funktsioon
     result = 10
     return result
 

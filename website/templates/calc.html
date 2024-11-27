@@ -2,12 +2,27 @@
 {% block title %}Calculation{% endblock %}
 {% block content %} 
 <form method="POST">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
     <br />
-    <h3 align="center">Andmete Arvutamine</h3>
+    <h1 align="center">Andmete Arvutamine</h3>
     <br />
+    <div class="choose_calc">
+        <h2>Valige kalkuleerimis parameeter</h3>
+        <label>
+          <input type="radio" name="option" id="radio1" onclick="handleRadioClick(1)"/> Vonkekiirus</label>
+        <label>
+          <input type="radio" name="option" id="radio2" onclick="handleRadioClick(2)"/> Kaugus</label>
+        <label>
+          <input type="radio" name="option" id="radio3" onclick="handleRadioClick(3)"/> Laengumass</label>
+      </div>
     <table class="insert_table">
-        <tr>
-            <td>
+        <tr class="hidden">
+            <td id="vonkeKiirus">
                 Vonkekiirus:
             </td>
             <td>
@@ -22,8 +37,8 @@
                 />
             </td>
         </tr>
-        <tr>
-            <td>
+        <tr class="hidden">
+            <td id="kaugus">
                 Kaugus:
             </td>
             <td>
@@ -37,8 +52,8 @@
                 />
             </td>
         </tr>
-        <tr>
-            <td>
+        <tr class="hidden">
+            <td id="laenguMass">
                 Laengumass:
             </td>
             <td>
@@ -50,6 +65,50 @@
                 step="0.001"
                 placeholder="Laengumass"
                 />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ehitise Liik:
+            </td>
+            <td>
+                <select name="ehitiseLiik" class="form-control">
+                
+                    <option value="2.00" selected='selected'>
+                        Rasked ehitised, nagu sillad ja sadamakaid
+                    </option>
+                    
+                    <option value="1.50" >
+                        Betoon-, raudbetoon- ja teraskonstruktsioonid,
+                        eelmainitud konstruktsioonidest tööstushooned,
+                        pritsbetooniga kaetud allmaarajatised
+                    </option>
+                    
+                    <option value="1.2">
+                        Tellistest ja betoonist büroo- ja ühiskondlikud hooned,
+                        betoonvundamendile või kaljupinnasele ehitatud puuhooned
+                    </option>
+
+                    <option value="1">
+                        Betoonist või tellistest elumajad (ehitises ei tohi olla kasutatud kergbetooni ega silikaattelliseid), allmaakaablid.
+                        Kivistuv valubetoon eaga üle ühe nädala
+                    </option>
+
+                    <option value="0.75">
+                        Kergbetoonehitised (ka kõik muud ehitised, milles on kasutatud kergbetooni).
+                        Kivistuv valubetoon eaga 3-7 ööpäeva 
+                    </option>
+
+                    <option value="0.65">
+                        Eriti vibratsioonitundlikud ehitised, nagu muuseumid,
+                        kirikud ja teised kõrgete võlvide ja suurte pingeväljadega hooned, silikaattellistest hooned.
+                        Kivistuv valubetoon eaga kuni 3 ööpäeva
+                    </option>
+
+                    <option value="0.5">
+                        Varinguohtlikud ajaloo- ja arhitektuurimälestised, varemed
+                    </option>
+                </select>
             </td>
         </tr>
     </table>
@@ -66,4 +125,17 @@
     <br />
     <p align="center">Sisestage kaks algparameetrid, et arvutada kolmas</p>
 </form>
+<script>
+    function handleRadioClick(selectedIndex) {
+            // Hide only the input field corresponding to the selected radio button
+            document.getElementById(`input${selectedIndex}`).classList.add('hidden');
+
+            // Show all other input fields
+            for (let i = 1; i <= 3; i++) {
+                if (i !== selectedIndex) {
+                    document.getElementById(`input${i}`).classList.remove('hidden');
+                }
+            }
+        }
+</script>
 {% endblock %}
