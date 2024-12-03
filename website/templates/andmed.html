@@ -1,23 +1,92 @@
 {% extends "base.html" %}
-{% block title %}Andmed{% endblock %}
-{% block content %} 
+
+{% block content %}
+<h1>Andmed Page</h1>
+<p>Below is the data fetched from the database:</p>
+
+<!-- Form to insert new data -->
+<h2>Add New Data Entry</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.kuupaev.label }} <br>
+        {{ form.kuupaev(class_="form-control") }}
+        <script>
+            // Replace the input with a date-time picker
+            document.addEventListener("DOMContentLoaded", function() {
+                const dateField = document.querySelector('input[name="kuupaev"]');
+                if (dateField) {
+                    dateField.type = "datetime-local"; // HTML5 datetime-local picker
+                }
+            });
+        </script>
+        {% for error in form.kuupaev.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.vertikaalne.label }} <br>
+        {{ form.vertikaalne() }} <br>
+        {% for error in form.vertikaalne.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.horisontaalne.label }} <br>
+        {{ form.horisontaalne() }} <br>
+        {% for error in form.horisontaalne.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.piki.label }} <br>
+        {{ form.piki() }} <br>
+        {% for error in form.piki.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.risti.label }} <br>
+        {{ form.risti() }} <br>
+        {% for error in form.risti.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.vektor_summa.label }} <br>
+        {{ form.vektor_summa() }} <br>
+        {% for error in form.vektor_summa.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+
+<!-- Displaying the data in a table -->
 <table border="1" style="width: 100%; text-align: left; border-collapse: collapse;">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
+            <th>Kuupäev</th>
+            <th>Vertikaalne</th>
+            <th>Horisontaalne</th>
+            <th>Piki</th>
+            <th>Risti</th>
+            <th>Vektor-summa</th>
         </tr>
     </thead>
     <tbody>
-        {% for user in users %}
+        {% for entry in data_entries %}
         <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
+            <td>{{ entry.kuupaev.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ entry.vertikaalne }}</td>
+            <td>{{ entry.horisontaalne }}</td>
+            <td>{{ entry.piki }}</td>
+            <td>{{ entry.risti }}</td>
+            <td>{{ entry.vektor_summa }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-
 {% endblock %}
