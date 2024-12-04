@@ -3,118 +3,163 @@
 {% block content %} 
 <form method="POST">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
     <br />
-    <h1 align="center">Andmete Arvutamine</h3>
+    <h1 align="center">Andmete Arvutamine</h3> 
     <br />
-    <div class="choose_calc">
-        <h2>Valige kalkuleerimis parameeter</h3>
-        <label>
-          <input type="radio" name="option" id="radio1" onclick="handleRadioClick(1)"/> Vonkekiirus</label>
-        <label>
-          <input type="radio" name="option" id="radio2" onclick="handleRadioClick(2)"/> Kaugus</label>
-        <label>
-          <input type="radio" name="option" id="radio3" onclick="handleRadioClick(3)"/> Laengumass</label>
-      </div>
-    <table class="insert_table">
-        <tr class="hidden">
-            <td id="vonkeKiirus">
-                Vonkekiirus:
-            </td>
-            <td>
+    <div class="choose_arv_btn_group">
+        <input
+            name="arvutusObject" 
+            type="radio" 
+            class="choose_arv_btn_group_button obej_toggle_left" 
+            id="btnArv" 
+            onclick="selectArvutused('Arvuta', 'Ohutus')"
+            value="1"
+            checked
+        ></input>
+        <label for="btnArv" class="arvuta_object_btn">Parameetri Arvutamine</label>
+        <input 
+            name="arvutusObject"
+            type="radio" 
+            class="choose_arv_btn_group_button obej_toggle_right" 
+            id="btnOhu" 
+            onclick="selectArvutused('Ohutus', 'Arvuta')"
+            value="2"
+        ></input>
+        <label for="btnOhu" class="arvuta_object_btn">Ohutuse Arvutamine</label>
+    </div>
+    <div class="class_arvuta" id="Arvuta">
+        <div class="choose_par_btn_group" >
+            <input
+                name="arvutusMethod" 
+                type="radio" 
+                class="choose_par_btn_group_button param_toggle_left" 
+                id="btnKiirus" 
+                onclick="selectParameter('tblMass', 'tblKiirus')"
+                value="1"
+                checked
+            ></input>
+            <label for="btnKiirus" class="arvuta_method_btn">Vonkekiirus</label>
+            <input 
+                name="arvutusMethod"
+                type="radio" 
+                class="choose_par_btn_group_button param_toggle_right" 
+                id="btnMass" 
+                onclick="selectParameter('tblKiirus', 'tblMass')"
+                value="2"
+            ></input>
+            <label for="btnMass" class="arvuta_method_btn">Laengumass</label>
+        </div>
+        <div class="insert_table">
+            <div id="tblKaugus">
+                <label class="data_input_lbl" for="kaugus">Kaugus: </label>
+                <span class="data_input_span">
+                    <input 
+                        type="number"
+                        class="input_data"
+                        id="kaugus"
+                        name="kaugus"
+                        step="0.001"
+                        placeholder="Kaugus"
+                    />
+                </span>
+            </div>
+            <div id="tblKiirus">
+                <label class="data_input_lbl" for="vonkeKiirus">Vonkekiirus: </label>
+                <span class=" data_input_span">
+                    <input 
+                        type="number"
+                        class="input_data"
+                        id="vonkeKiirus"
+                        name="vonkeKiirus"
+                        value="None"
+                        step="0.0001"
+                        placeholder="Vonkekiirus"
+                    />
+                </span>
+            </div>
+            <div id="tblMass">
+                <label class="data_input_lbl" for="laenguMass">Laengumass: </label>
+                <span class="data_input_span">
+                    <input 
+                        type="number"
+                        class="input_data"
+                        id="laenguMass"
+                        name="laenguMass"
+                        step="0.001"
+                        placeholder="Laengumass"
+                    />
+                </span>
+            </div>
+        </div>
+        <br />
+    </div>
+    <div id="Ohutus">
+        <div id="tblKaugus">
+            <label class="data_input_lbl" for="kaugus">Kaugus: </label>
+            <span class="data_input_span">
                 <input 
-                type="number"
-                class="form-control"
-                id="vonkeKiirus"
-                name="vonkeKiirus"
-                value="None"
-                step="0.001"
-                placeholder="Vonkekiirus"
+                    type="number"
+                    class="input_data"
+                    id="kaugus"
+                    name="kaugus"
+                    step="0.001"
+                    placeholder="Kaugus"
                 />
-            </td>
-        </tr>
-        <tr class="hidden">
-            <td id="kaugus">
-                Kaugus:
-            </td>
-            <td>
-                <input 
-                type="number"
-                class="form-control"
-                id="kaugus"
-                name="kaugus"
-                step="0.001"
-                placeholder="Kaugus"
-                />
-            </td>
-        </tr>
-        <tr class="hidden">
-            <td id="laenguMass">
-                Laengumass:
-            </td>
-            <td>
-                <input 
-                type="number"
-                class="form-control"
-                id="laenguMass"
-                name="laenguMass"
-                step="0.001"
-                placeholder="Laengumass"
-                />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Ehitise Liik:
-            </td>
-            <td>
-                <select name="ehitiseLiik" class="form-control">
-                
-                    <option value="2.00" selected='selected'>
-                        Rasked ehitised, nagu sillad ja sadamakaid
-                    </option>
+            </span>
+        </div>
+        <label class="select_input_lbl" for="ehitiseAluspinnas">Ehitise aluspinnas: </label>
+        <select name="ehitiseAluspinnas" id="ehitiseAluspinnas" class="form-control""> 
+            <option value="1" selected>Savi, kruus, liiv, pehme moreen</option>
+            <option value="2">Tugev moreen, kildad, pehme lubjakivi, liivakivi</option>
+            <option value="3">Graniit, gneiss, tugev lubjakivi, tugev liivakivi</option>
+        </select>
+        <label class="select_input_lbl" for="objectAluspinnas">Objekti aluspinnas: </label>
+        <select name="objectAluspinnas" id="objectAluspinnas" class="form-control"">
+            <option value="300" selected>Veevaene kaljupinnas paksuga kuni 15m</option>
+            <option value="450">Keskmise veesisaldusega üle 15 m paks liiva- või savipinnas</option>
+            <option value="600">Veega küllastunud kobe pinnas (vesiliivad)</option>
+        </select>
+        <label class="select_input_lbl" for="ehitiseLiik">Ehitise liik: </label>
+        <select name="ehitiseLiik" id="ehitiseLiik" class="form-control">
                     
-                    <option value="1.50" >
-                        Betoon-, raudbetoon- ja teraskonstruktsioonid,
-                        eelmainitud konstruktsioonidest tööstushooned,
-                        pritsbetooniga kaetud allmaarajatised
-                    </option>
-                    
-                    <option value="1.2">
-                        Tellistest ja betoonist büroo- ja ühiskondlikud hooned,
-                        betoonvundamendile või kaljupinnasele ehitatud puuhooned
-                    </option>
+            <option value="2.00" selected>
+                Rasked ehitised, nagu sillad ja sadamakaid
+            </option>
+            
+            <option value="1.50" >
+                Betoon-, raudbetoon- ja teraskonstruktsioonid,
+                eelmainitud konstruktsioonidest tööstushooned,
+                pritsbetooniga kaetud allmaarajatised
+            </option>
+            
+            <option value="1.2">
+                Tellistest ja betoonist büroo- ja ühiskondlikud hooned,
+                betoonvundamendile või kaljupinnasele ehitatud puuhooned
+            </option>
 
-                    <option value="1">
-                        Betoonist või tellistest elumajad (ehitises ei tohi olla kasutatud kergbetooni ega silikaattelliseid), allmaakaablid.
-                        Kivistuv valubetoon eaga üle ühe nädala
-                    </option>
+            <option value="1">
+                Betoonist või tellistest elumajad (ehitises ei tohi olla kasutatud kergbetooni ega silikaattelliseid), allmaakaablid.
+                Kivistuv valubetoon eaga üle ühe nädala
+            </option>
 
-                    <option value="0.75">
-                        Kergbetoonehitised (ka kõik muud ehitised, milles on kasutatud kergbetooni).
-                        Kivistuv valubetoon eaga 3-7 ööpäeva 
-                    </option>
+            <option value="0.75">
+                Kergbetoonehitised (ka kõik muud ehitised, milles on kasutatud kergbetooni).
+                Kivistuv valubetoon eaga 3-7 ööpäeva 
+            </option>
 
-                    <option value="0.65">
-                        Eriti vibratsioonitundlikud ehitised, nagu muuseumid,
-                        kirikud ja teised kõrgete võlvide ja suurte pingeväljadega hooned, silikaattellistest hooned.
-                        Kivistuv valubetoon eaga kuni 3 ööpäeva
-                    </option>
+            <option value="0.65">
+                Eriti vibratsioonitundlikud ehitised, nagu muuseumid,
+                kirikud ja teised kõrgete võlvide ja suurte pingeväljadega hooned, silikaattellistest hooned.
+                Kivistuv valubetoon eaga kuni 3 ööpäeva
+            </option>
 
-                    <option value="0.5">
-                        Varinguohtlikud ajaloo- ja arhitektuurimälestised, varemed
-                    </option>
-                </select>
-            </td>
-        </tr>
-    </table>
-    <br />
-    <div style="text-align: center;">
-        <button type="submit" class="btn btn-primary">Arvuta</button>
+            <option value="0.5">
+                Varinguohtlikud ajaloo- ja arhitektuurimälestised, varemed
+            </option>
+        </select>
+    </div>
+    <div class="submit_data">
+        <button type="submit" class="submit_data_button">Arvuta</button>
     </div>
     <br />
     <h2 align="center">Tulemus:</h2>
@@ -123,19 +168,5 @@
     {% else %}
     {% endif %}
     <br />
-    <p align="center">Sisestage kaks algparameetrid, et arvutada kolmas</p>
 </form>
-<script>
-    function handleRadioClick(selectedIndex) {
-            // Hide only the input field corresponding to the selected radio button
-            document.getElementById(`input${selectedIndex}`).classList.add('hidden');
-
-            // Show all other input fields
-            for (let i = 1; i <= 3; i++) {
-                if (i !== selectedIndex) {
-                    document.getElementById(`input${i}`).classList.remove('hidden');
-                }
-            }
-        }
-</script>
 {% endblock %}

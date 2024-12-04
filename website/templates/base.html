@@ -15,6 +15,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <script src="{{ url_for('static', filename='styles/scripts.js') }}"></script>
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 <body>
@@ -31,7 +32,7 @@
       <a href="/" id="navbar__logo">Seismika</a>
       <div class="navbar-nav">
         <a class="nav-item" id="calc" href="/calc">Kalkulaator</a>
-        <a class="nav-item" id="calc" href="/graph">Graaf</a>
+        <!--a class="nav-item" id="calc" href="/graph">Graaf</a-->
         <a class="nav-item" id="calc" href="/andmed">Andmed</a>
       </div>
     </div>
