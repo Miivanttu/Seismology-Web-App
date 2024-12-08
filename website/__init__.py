@@ -6,7 +6,7 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'seismika'
+    app.config['SECRET_KEY'] = 'afsD^&Wdg77a6wduAIwdyugy23by3hseyury3i278*AYwdawyuq8&&*&YDW*&Dwu'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database file
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
