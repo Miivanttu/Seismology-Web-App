@@ -38,7 +38,7 @@
                 value="1"
                 checked
             ></input>
-            <label for="btnKiirus" class="arvuta_method_btn">Vonkekiirus</label>
+            <label for="btnKiirus" class="arvuta_method_btn">Võnkekiirus</label>
             <input 
                 name="arvutusMethod"
                 type="radio" 
@@ -65,27 +65,26 @@
                 </span>
             </div>
             <div id="tblKiirus">
-                <label class="data_input_lbl" for="vonkeKiirus">Vonkekiirus (mm/s): </label>
+                <label class="data_input_lbl" for="vonkeKiirusArvuta">Võnkekiirus (mm/s): </label>
                 <span class=" data_input_span">
                     <input 
                         type="number"
                         class="input_data"
-                        id="vonkeKiirus"
-                        name="vonkeKiirus"
-                        value="None"
+                        id="vonkeKiirusArvuta"
+                        name="vonkeKiirusArvuta"
                         step="0.0001"
-                        placeholder="Vonkekiirus"
+                        placeholder="Võnkekiirus"
                     />
                 </span>
             </div>
             <div id="tblMass">
-                <label class="data_input_lbl" for="laenguMass">Laengumass (kg): </label>
+                <label class="data_input_lbl" for="laenguMassArvuta">Laengumass (kg): </label>
                 <span class="data_input_span">
                     <input 
                         type="number"
                         class="input_data"
-                        id="laenguMass"
-                        name="laenguMass"
+                        id="laenguMassArvuta"
+                        name="laenguMassArvuta"
                         step="0.001"
                         placeholder="Laengumass"
                         required
@@ -110,29 +109,28 @@
             </span>
         </div>
         <div id="tblMass">
-            <label class="data_input_lbl" for="laenguMass">Laengumass (kg): </label>
+            <label class="data_input_lbl" for="laenguMassOhutu">Laengumass (kg): </label>
             <span class="data_input_span">
                 <input 
                     type="number"
                     class="input_data"
-                    id="laenguMass"
-                    name="laenguMass"
+                    id="laenguMassOhutu"
+                    name="laenguMassOhutu"
                     step="0.001"
                     placeholder="Laengumass"
                 />
             </span>
         </div>
         <div id="tblMaxKiirus">
-            <label class="data_input_lbl" for="vonkeKiirus">Vonkekiirus (mm/s): </label>
+            <label class="data_input_lbl" for="vonkeKiirusOhutu">Võnkekiirus (mm/s): </label>
             <span class=" data_input_span">
                 <input 
                     type="number"
                     class="input_data"
-                    id="vonkeKiirus"
-                    name="vonkeKiirus"
-                    value="None"
+                    id="vonkeKiirusOhutu"
+                    name="vonkeKiirusOhutu"
                     step="0.0001"
-                    placeholder="Vonkekiirus"
+                    placeholder="Võnkekiirus"
                 />
             </span>
         </div>
@@ -192,30 +190,60 @@
     </div>
     <br />
     <h2 align="center">Tulemus:</h2>
-    <div>
-        {% if result is not none and checkMethod == 2%}
+    {% if data.result is not none and data.checkMethod == 2%}
+        <div class="Ohutus_result">
             <table>
-                <tr>
-                    <td><p>Vonkekiirus: {{ vonkeKiirus }} mm/s</p></td>
-                    <td><p>Maksimaalne vonkekiirus {{ maxVonkeKiirus }} mm/s</p></td>
-                </tr>
-                <tr>
-                    <td><p>Laengumass: {{ laenguMass }} kg</p></td>
-                    <td><p>Maksimaalne laengumass: {{ result }} kg</p></td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td><p>Kaugus: {{ data.kaugusOhutu }} m</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Laengumass: {{ data.laenguMassOhutu }} kg</p></td>
+                        <td><p>Maksimaalne laengumass: {{ data.result }} kg</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Võnkekiirus: {{ data.vonkeKiirusOhutu }} cm/s</p></td>
+                        <td><p>Maksimaalne võnkekiirus {{ data.maxVonkeKiirus }} cm/s</p></td>
+                    </tr>
+                </tbody>
             </table>
-        {% endif %}
-    </div>
-    {% if result is not none %}
-        <p align="center"><strong>{{ kaugus }}</strong></p>
-        {% if vonkeKiirus is not none %}
-            <p align="center"><strong>{{ vonkeKiirus }}</strong></p>
-        {% endif %}
-        {% if laenguMass is not none %}
-            <p align="center"><strong>{{ laenguMass }}</strong></p>
-        {% endif %}
-        <p align="center"><strong>{{ result }}</strong></p>
-    {% else %}
+            <div class="Comparison_text">
+                {% if data.maxVonkeKiirus < data.vonkeKiirusOhutu %}
+                    <div class="danger alert">
+                        <div class="content">
+                          <div class="icon">
+                            <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z"/></svg>
+                        </div>
+                          <p>Võnkekiirus ülatab maksimaalse ohutu võnkekiiruse!</p>
+                        </div>
+                      </div>
+                {% elif data.maxVonkeKiirus >= data.vonkeKiirusOhutu %}
+                    <div class="success alert">
+                        <div class="content">
+                          <div class="icon">
+                            <svg width="50" height="50" id="Layer_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><circle fill="#fff" cx="64" cy="64" r="64"/></g><g><path fill="#3EBD61" d="M54.3,97.2L24.8,67.7c-0.4-0.4-0.4-1,0-1.4l8.5-8.5c0.4-0.4,1-0.4,1.4,0L55,78.1l38.2-38.2   c0.4-0.4,1-0.4,1.4,0l8.5,8.5c0.4,0.4,0.4,1,0,1.4L55.7,97.2C55.3,97.6,54.7,97.6,54.3,97.2z"/></g></svg>
+                        </div>
+                          <p>Võnkekiirus on ohutus vahemikus</p>
+                        </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    {% if data.result is not none and data.checkMethod == 1%}
+        <div class="Arvutus_result">
+            <p class="Arvutus_result_text">Kaugus: {{ data.kaugusArvuta }} m</p>
+            {% if data.laenguMassArvuta is not none%}
+                <p class="Arvutus_result_text">Laengumass: {{ data.laenguMassArvuta }} kg</p>
+            {% endif %}
+            {% if data.vonkeKiirusArvuta is not none%}
+                <p class="Arvutus_result_text">Võnkekiirus: {{ data.vonkeKiirusArvuta }} mm/s</p>
+            {% endif %}
+            {% if data.vonkeKiirusArvuta is none%}
+                <p class="Arvutus_result_text">Võnkekiirus: {{ data.result }} mm/s</p>
+            {% elif data.laenguMassArvuta is none%}
+                <p class="Arvutus_result_text">Laengumass: {{ data.result }} kg</p>
+            {% endif %}
+        </div>
     {% endif %}
     <br />
 </form>

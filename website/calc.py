@@ -34,46 +34,64 @@ ehiAluspinKaugusRanges = [
 @calc.route('/calc', methods=['GET','POST'])
 def arvuta():
     result = None
-    laenguMass = None
-    vonkeKiirus = None
     maxVonkeKiirus = None
     checkMethod = 1
+    kaugusOhutu = None
+    kaugusArvuta = None
+    laenguMassArvuta = None
+    vonkeKiirusArvuta = None
+    laenguMassOhutu = None
+    vonkeKiirusOhutu = None
     if request.method == 'POST':
         arvutusMethod = request.form.get('arvutusMethod')
         arvutusObject = request.form.get('arvutusObject')
-        vonkeKiirus = request.form.get('vonkeKiirus', type=float)
+        vonkeKiirusArvuta = request.form.get('vonkeKiirusArvuta', type=float)
+        vonkeKiirusOhutu = request.form.get('vonkeKiirusOhutu', type=float)
         kaugusArvuta = request.form.get('kaugusArvuta', type=float)
         kaugusOhutu = request.form.get('kaugusOhutu', type=float)
-        laenguMass = request.form.get('laenguMass', type=float)
+        laenguMassArvuta = request.form.get('laenguMassArvuta', type=float)
+        laenguMassOhutu = request.form.get('laenguMassOhutu', type=float)
         ehitiseLiik = request.form.get('ehitiseLiik', type=float)
         obejAluspin = request.form.get('objectAluspinnas', type=float)
         ehitiseAluspin = request.form.get('ehitiseAluspinnas', type=int)
         if arvutusObject == "1":
             if arvutusMethod == "1":
-                if kaugusArvuta != None and laenguMass != None:
-                    result = vonkeKiirusArvuta(kaugusArvuta, laenguMass)
+                if kaugusArvuta != None and laenguMassArvuta != None:
+                    result = vonkeKiirusArvutaFunc(kaugusArvuta, laenguMassArvuta)
                     checkMethod = 1
             elif arvutusMethod == "2":
-                if vonkeKiirus != None and kaugusArvuta != None:
-                    result = laenguMassArvuta(vonkeKiirus, kaugusArvuta)
+                if vonkeKiirusArvuta != None and kaugusArvuta != None:
+                    result = laenguMassArvutaFunc(vonkeKiirusArvuta, kaugusArvuta)
                     checkMethod = 1
         elif arvutusObject == "2":
             lubatudKiirus = ehitAluspinMaxVonkekiirus(ehitiseAluspin, kaugusOhutu)
             maxVonkeKiirus = vonkeMaxKiirusArvuta(lubatudKiirus, ehitiseLiik)
             result = maxLaenguMassArvuta(maxVonkeKiirus, kaugusOhutu, obejAluspin)
             checkMethod = 2
-    return render_template("calc.html", result = result, 
-                           laenguMass = laenguMass, 
-                           vonkeKiirus = vonkeKiirus, 
-                           maxVonkeKiirus = maxVonkeKiirus, 
-                           checkMethod = checkMethod); result = None; laenguMass = None; vonkeKiirus = None
+            maxVonkeKiirus = round(maxVonkeKiirus, 3)
+            vonkeKiirusOhutu = vonkeKiirusOhutu / 10 #mm/s to cm/s convertion
+            
+    if result is not None:
+        result = round(float(result), 3)
+    data = {
+        "kaugusArvuta": kaugusArvuta,
+        "kaugusOhutu": kaugusOhutu,
+        "result": result, 
+        "laenguMassArvuta": laenguMassArvuta,
+        "laenguMassOhutu": laenguMassOhutu, 
+        "vonkeKiirusArvuta": vonkeKiirusArvuta,
+        "vonkeKiirusOhutu": vonkeKiirusOhutu,  
+        "maxVonkeKiirus": maxVonkeKiirus, 
+        "checkMethod": checkMethod,
+    }
+    return render_template("calc.html", data = data); result = None;
 
-def vonkeKiirusArvuta(kaugus, laenguMass):
+def vonkeKiirusArvutaFunc(kaugus, laenguMass):
     ds = kaugus/numpy.sqrt(laenguMass)
     vonkeKiirus = A * ds + B
     return vonkeKiirus
 
-def laenguMassArvuta(vonkeKiirus, kaugus):
+def laenguMassArvutaFunc(vonkeKiirus, kaugus):
     ds = (vonkeKiirus - B)/A
     laenguMass = (kaugus**2)/(ds**2)
     return laenguMass
@@ -90,5 +108,5 @@ def maxLaenguMassArvuta(maxVonkeKiirus, kaugus, pinnas):
 def ehitAluspinMaxVonkekiirus(ehitiseAluspin, kaugus):
     for idx, (low, high) in enumerate(ehiAluspinKaugusRanges):
         if low <= kaugus <= high:
-            return ehitisAluspinValue[idx][ehitiseAluspin]
+            return ehitisAluspinValue[idx][ehitiseAluspin-1]
     return 0
