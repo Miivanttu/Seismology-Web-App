@@ -51,20 +51,21 @@
         </div>
         <div class="insert_table">
             <div id="tblKaugus">
-                <label class="data_input_lbl" for="kaugus">Kaugus: </label>
+                <label class="data_input_lbl" for="kaugus">Kaugus (m): </label>
                 <span class="data_input_span">
                     <input 
                         type="number"
                         class="input_data"
                         id="kaugus"
-                        name="kaugus"
+                        name="kaugusArvuta"
                         step="0.001"
                         placeholder="Kaugus"
+                        required
                     />
                 </span>
             </div>
             <div id="tblKiirus">
-                <label class="data_input_lbl" for="vonkeKiirus">Vonkekiirus: </label>
+                <label class="data_input_lbl" for="vonkeKiirus">Vonkekiirus (mm/s): </label>
                 <span class=" data_input_span">
                     <input 
                         type="number"
@@ -78,7 +79,7 @@
                 </span>
             </div>
             <div id="tblMass">
-                <label class="data_input_lbl" for="laenguMass">Laengumass: </label>
+                <label class="data_input_lbl" for="laenguMass">Laengumass (kg): </label>
                 <span class="data_input_span">
                     <input 
                         type="number"
@@ -87,6 +88,7 @@
                         name="laenguMass"
                         step="0.001"
                         placeholder="Laengumass"
+                        required
                     />
                 </span>
             </div>
@@ -95,15 +97,42 @@
     </div>
     <div id="Ohutus">
         <div id="tblKaugus">
-            <label class="data_input_lbl" for="kaugus">Kaugus: </label>
+            <label class="data_input_lbl" for="kaugus">Kaugus (m): </label>
             <span class="data_input_span">
                 <input 
                     type="number"
                     class="input_data"
                     id="kaugus"
-                    name="kaugus"
+                    name="kaugusOhutu"
                     step="0.001"
                     placeholder="Kaugus"
+                />
+            </span>
+        </div>
+        <div id="tblMass">
+            <label class="data_input_lbl" for="laenguMass">Laengumass (kg): </label>
+            <span class="data_input_span">
+                <input 
+                    type="number"
+                    class="input_data"
+                    id="laenguMass"
+                    name="laenguMass"
+                    step="0.001"
+                    placeholder="Laengumass"
+                />
+            </span>
+        </div>
+        <div id="tblMaxKiirus">
+            <label class="data_input_lbl" for="vonkeKiirus">Vonkekiirus (mm/s): </label>
+            <span class=" data_input_span">
+                <input 
+                    type="number"
+                    class="input_data"
+                    id="vonkeKiirus"
+                    name="vonkeKiirus"
+                    value="None"
+                    step="0.0001"
+                    placeholder="Vonkekiirus"
                 />
             </span>
         </div>
@@ -163,7 +192,28 @@
     </div>
     <br />
     <h2 align="center">Tulemus:</h2>
+    <div>
+        {% if result is not none and checkMethod == 2%}
+            <table>
+                <tr>
+                    <td><p>Vonkekiirus: {{ vonkeKiirus }} mm/s</p></td>
+                    <td><p>Maksimaalne vonkekiirus {{ maxVonkeKiirus }} mm/s</p></td>
+                </tr>
+                <tr>
+                    <td><p>Laengumass: {{ laenguMass }} kg</p></td>
+                    <td><p>Maksimaalne laengumass: {{ result }} kg</p></td>
+                </tr>
+            </table>
+        {% endif %}
+    </div>
     {% if result is not none %}
+        <p align="center"><strong>{{ kaugus }}</strong></p>
+        {% if vonkeKiirus is not none %}
+            <p align="center"><strong>{{ vonkeKiirus }}</strong></p>
+        {% endif %}
+        {% if laenguMass is not none %}
+            <p align="center"><strong>{{ laenguMass }}</strong></p>
+        {% endif %}
         <p align="center"><strong>{{ result }}</strong></p>
     {% else %}
     {% endif %}

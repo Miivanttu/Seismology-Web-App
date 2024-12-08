@@ -81,6 +81,12 @@
     justify-content: center;
     align-items: center;
 }
+#tblMaxKiirus{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 #tblKaugus{
     display: flex;
     flex-direction: row;
