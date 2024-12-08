@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, request
 import numpy as numpy
 
 calc = Blueprint('calc', __name__)
-A = -0.4119
-B = 0.9096
+A = -0.0088
+B = 3.9126
 @calc.route('/calc', methods=['GET','POST'])
 def arvuta():
     result = None
@@ -34,11 +34,12 @@ def arvuta():
 
 def vonkeKiirusArvuta(kaugus, laenguMass):
     d1 = kaugus/numpy.sqrt(laenguMass)
-    vonkeKiirus = B * d1**A
+    vonkeKiirus = A * d1 + B
     return vonkeKiirus
 
 def laenguMassArvuta(vonkeKiirus, kaugus):
-    laenguMass = (kaugus/((B/vonkeKiirus)**(-1/A)))**2
+    d1 = (vonkeKiirus - B)/A
+    laenguMass = (kaugus**2)/(d1**2)
     return laenguMass
 
 
