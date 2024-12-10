@@ -102,7 +102,7 @@ def vonkeMaxKiirusArvuta(lubatudKiirus, ehiLiik):
     return maxVonkeKiirus
 
 def maxLaenguMassArvuta(maxVonkeKiirus, kaugus, pinnas):
-    laenguMass = (maxVonkeKiirus**2)*(kaugus**2.7)/(pinnas**2)
+    laenguMass = ((maxVonkeKiirus**2)*(kaugus**2.7))/(pinnas**2)
     return laenguMass
 
 def ehitAluspinMaxVonkekiirus(ehitiseAluspin, kaugus):
