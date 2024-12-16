@@ -6,6 +6,7 @@ Flask==3.0.3
 Flask-SQLAlchemy==3.1.1
 Flask-WTF @ https://github.com/wtforms/flask-wtf/archive/main.tar.gz#sha256=aefff868a786ec2aaec6b39b11388b3bc999b511956b731b0dc1a0b467a9b301
 greenlet==3.1.1
+gunicorn==23.0.0
 itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==3.0.2
